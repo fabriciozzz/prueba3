@@ -1,0 +1,13 @@
+function doPost(e) {
+  var sheet = SpreadsheetApp.openById("1WxtHGBzv6UjAalHz2X5UiJhRg2RFG0eE82fvwlcgIEA").getSheetByName("Respuestas");
+  var data = JSON.parse(e.postData.contents);
+  sheet.appendRow([
+    new Date(),
+    data.nombre || "",
+    data.dni || "",
+    data.numero || "",
+    data.correo || "",
+    data.tipo_usuario || ""
+  ]);
+  return ContentService.createTextOutput("OK");
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Ceremonia UJBG</title>
+    <style>
+        body {
+            background-color: #001f4d;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .registro-container {
+            background-color: #003366;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"] {
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+        }
+        .boton-registrarse {
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .boton-registrarse:hover {
+            background-color: #218838;
+        }
+        .tipo-usuario {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #002b5c;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .tipo-usuario label {
+            font-weight: normal;
+        }
+        .form-group {
+            display: none;
+        }
+    </style>
+    <script>
+        function mostrarCampos() {
+            const tipo = document.querySelector('input[name="tipo_usuario"]:checked').value;
+            document.querySelectorAll('.form-group').forEach(el => el.style.display = 'none');
+            document.getElementById('grupo-nombre').style.display = 'block';
+            if (tipo === 'persona_comun') {
+                document.getElementById('grupo-dni').style.display = 'block';
+            } else if (tipo === 'estudiante') {
+                document.getElementById('grupo-correo').style.display = 'block';
+            } else if (tipo === 'administrador') {
+                document.getElementById('grupo-dni').style.display = 'block';
+                document.getElementById('grupo-correo').style.display = 'block';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="registro-container">
+        <h2>INICIO DE SESIÓN</h2>
+        <form>
+            <div class="tipo-usuario">
+                <label><input type="radio" name="tipo_usuario" value="persona_comun" onclick="mostrarCampos()"> Persona Común</label>
+                <label><input type="radio" name="tipo_usuario" value="estudiante" onclick="mostrarCampos()"> Estudiante</label>
+                <label><input type="radio" name="tipo_usuario" value="administrador" onclick="mostrarCampos()"> Administrador</label>
+            </div>
+
+            <div class="form-group" id="grupo-nombre">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ejemplo: Juan Pérez" required>
+            </div>
+
+            <div class="form-group" id="grupo-dni">
+                <label for="dni">DNI</label>
+                <input type="text" id="dni" name="dni" pattern="\d{8}" placeholder="Ejemplo: 61796217">
+            </div>
+
+            <div class="form-group" id="grupo-correo">
+                <label for="correo">Correo Electrónico</label>
+                <input type="email" id="correo" name="correo" pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" placeholder="Ejemplo: usuario@gmail.com">
+            </div>
+
+            <button type="submit" class="boton-registrarse">Entrar</button>
+            <p style="text-align:center; margin-top: 10px;">¿No tienes cuenta? <a href="#" style="color: #a5d6ff;">Regístrate</a></p>
+        </form>
+    </div>
+</body>
+</html>
+
