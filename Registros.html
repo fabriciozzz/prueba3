@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - Ceremonia UJBG</title>
+    <style>
+        body {
+            background-color: #001f4d;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .registro-container {
+            background-color: #003366;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"] {
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+        }
+        .tipo-usuario {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .tipo-usuario label {
+            font-weight: normal;
+        }
+        .boton-registrarse {
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .boton-registrarse:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="registro-container">
+        <h2>Llene los datos para registrarse</h2>
+        <form id="form-registro">
+            <label for="nombre">Nombre y Apellido</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ejemplo: Juan Carlos Pérez" required>
+
+            <label for="dni">DNI</label>
+            <input type="text" id="dni" name="dni" pattern="\d{8}" placeholder="Ejemplo: 61796217" required>
+
+            <label for="numero">Número de Celular</label>
+            <input type="tel" id="numero" name="numero" pattern="\+51\d{9}" placeholder="Ejemplo: +51987654321" required>
+
+            <label for="correo">Correo Electrónico</label>
+            <input type="email" id="correo" name="correo" pattern=".+@gmail\.com" placeholder="Ejemplo: usuario@gmail.com" required>
+
+
+
+            <div class="tipo-usuario">
+                <label><input type="radio" name="tipo_usuario" value="Estudiante" required> Estudiante</label>
+                <label><input type="radio" name="tipo_usuario" value="Persona Común"> Persona Común</label>
+            </div>
+
+            <button type="submit" class="boton-registrarse">Registrarse</button>
+        </form>
+    </div>
+
+    <script>
+document.querySelector("form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const data = {
+    nombre: document.getElementById("nombre").value,
+    dni: document.getElementById("dni") ? document.getElementById("dni").value : "",
+    numero: document.getElementById("numero") ? document.getElementById("numero").value : "",
+    correo: document.getElementById("correo").value,
+    tipo_usuario: document.querySelector('input[name="tipo_usuario"]:checked')?.value || ""
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbyi43Cm5UU1PMRh2_nqkCTusrn5GNDxxBmdqLUmUkUIrhrC06H4o_b0B2TB1piG3SR8/exec", {
+    method: "POST",
+    body: JSON.stringify(data),
+  })
+  .then(res => res.text())
+  .then(msg => {
+    alert("✅ Registro enviado con éxito");
+    document.querySelector("form").reset();
+  })
+  .catch(err => {
+    console.error("Error:", err);
+    alert("❌ Hubo un problema al enviar el formulario");
+  });
+});
+</script>
+
+</body>
+</html>
